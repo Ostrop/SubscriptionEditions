@@ -4,18 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SubscriptionEditionsPrEP.WPF"
+        xmlns:uc="clr-namespace:Captcha;assembly=Captcha"
         mc:Ignorable="d"
-        Title="Окно авторизации" Height="293.369" Width="382.895">
+        Title="Окно авторизации" Height="449.783" Width="412.082" Background="#FF979595">
     <Grid>
-        <Button Content="Войти" HorizontalAlignment="Left" Margin="110,210,0,0" VerticalAlignment="Top" Width="121" Height="33" Click="EnterButton" RenderTransformOrigin="-0.521,0.419" FontFamily="Times New Roman" FontSize="18"/>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="44,85,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="18"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="37,142,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="18"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="111,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" FontFamily="Times New Roman" FontSize="18"/>
-        <PasswordBox x:Name="PassBox" HorizontalAlignment="Left" Margin="111,150,0,0" VerticalAlignment="Top" Width="184" FontFamily="Times New Roman" FontSize="18"/>
-        <TextBox x:Name="PassTextBox" HorizontalAlignment="Left" Margin="111,150,0,0" VerticalAlignment="Top" Width="184" Visibility="Hidden" FontFamily="Times New Roman" FontSize="18"/>
-        <Image HorizontalAlignment="Left" Height="23" Margin="307,150,0,0" VerticalAlignment="Top" Width="25" Source="/Resources/Eye.png" MouseLeftButtonDown="aPicture_MouseDown" />
-        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="44,21,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
-        <Image HorizontalAlignment="Left" Height="38" Margin="203,21,0,0" VerticalAlignment="Top" Width="47" Source="/Resources/Lock.jpg"/>
-
+        <Button Name="EntBut" Content="Войти" HorizontalAlignment="Left" Margin="110,345,0,0" VerticalAlignment="Top" Width="121" Height="33" Click="EnterButton" RenderTransformOrigin="-0.521,0.419" FontFamily="Times New Roman" FontSize="18"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="13,75,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="18"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="6,119,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="18"/>
+        <TextBox x:Name="LogTB" HorizontalAlignment="Left" Height="23" Margin="80,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" FontFamily="Times New Roman" FontSize="18"/>
+        <PasswordBox x:Name="PassBox" HorizontalAlignment="Left" Margin="80,127,0,0" VerticalAlignment="Top" Width="184" FontFamily="Times New Roman" FontSize="18"/>
+        <TextBox x:Name="PassTextBox" HorizontalAlignment="Left" Margin="80,127,0,0" VerticalAlignment="Top" Width="184" Visibility="Hidden" FontFamily="Times New Roman" FontSize="18"/>
+        <Image HorizontalAlignment="Left" Height="23" Margin="269,127,0,0" VerticalAlignment="Top" Width="25" Source="/Resources/Eye.png" MouseLeftButtonDown="aPicture_MouseDown" />
+        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="65,7,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24"/>
+        <Image HorizontalAlignment="Left" Height="38" Margin="224,7,0,0" VerticalAlignment="Top" Width="47" Source="/Resources/Lock.jpg"/>
+        <Label Name="CaptchaLabel" Visibility="Hidden" Content="Введите символы с картинки" HorizontalAlignment="Left" Margin="44,186,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="18"/>
+        <uc:Captcha Name="CaptchaView" Margin="44,217,115,124" Visibility="Hidden"></uc:Captcha>
+        <TextBox x:Name="CaptchaTB" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="80,311,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" FontFamily="Times New Roman" FontSize="18"/>
+        <Label Foreground="Red" Content="*Неправильный логин или пароль" Name="WrongPassLabel" Visibility="Hidden" HorizontalAlignment="Left" Margin="79,150,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="12"/>
+        <Image Source="/Resources/LogoOG.png" Height="107" Margin="249,56,-51,256" Width="206" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>

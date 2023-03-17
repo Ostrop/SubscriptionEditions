@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище EducPracModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Follows">
+          <Key>
+            <PropertyRef Name="follow_id" />
+          </Key>
+          <Property Name="follow_id" Type="int" Nullable="false" />
+          <Property Name="recipient_id" Type="int" Nullable="false" />
+          <Property Name="publication_id" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="period" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Publications">
+          <Key>
+            <PropertyRef Name="publication_id" />
+          </Key>
+          <Property Name="publication_id" Type="int" Nullable="false" />
+          <Property Name="publication_type" Type="varchar" MaxLength="80" />
+          <Property Name="publication_name" Type="varchar" MaxLength="80" />
+          <Property Name="price" Type="float" />
+        </EntityType>
+        <EntityType Name="Recipients">
+          <Key>
+            <PropertyRef Name="recipient_id" />
+          </Key>
+          <Property Name="recipient_id" Type="int" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="80" />
+          <Property Name="name" Type="varchar" MaxLength="80" />
+          <Property Name="patronymic" Type="varchar" MaxLength="80" />
+          <Property Name="address" Type="varchar" MaxLength="80" />
+          <Property Name="login" Type="varchar" MaxLength="80" />
+          <Property Name="password" Type="varchar(max)" />
+          <Property Name="Image" Type="varchar" MaxLength="80" />
+          <Property Name="isAdmin" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Publications_Follows">
+          <End Role="Publications" Type="Self.Publications" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publications">
+              <PropertyRef Name="publication_id" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="publication_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recipients_Follows">
+          <End Role="Recipients" Type="Self.Recipients" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="recipient_id" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="recipient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище EducPracModelContainer">
+          <EntitySet Name="Follows" EntityType="Self.Follows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publications" EntityType="Self.Publications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipients" EntityType="Self.Recipients" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Publications_Follows" Association="Self.FK_Publications_Follows">
+            <End Role="Publications" EntitySet="Publications" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recipients_Follows" Association="Self.FK_Recipients_Follows">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EducPracModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Follows">
+          <Key>
+            <PropertyRef Name="follow_id" />
+          </Key>
+          <Property Name="follow_id" Type="Int32" Nullable="false" />
+          <Property Name="recipient_id" Type="Int32" Nullable="false" />
+          <Property Name="publication_id" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="period" Type="Byte" />
+          <NavigationProperty Name="Publications" Relationship="Self.FK_Publications_Follows" FromRole="Follows" ToRole="Publications" />
+          <NavigationProperty Name="Recipients" Relationship="Self.FK_Recipients_Follows" FromRole="Follows" ToRole="Recipients" />
+        </EntityType>
+        <EntityType Name="Publications">
+          <Key>
+            <PropertyRef Name="publication_id" />
+          </Key>
+          <Property Name="publication_id" Type="Int32" Nullable="false" />
+          <Property Name="publication_type" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="publication_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Double" />
+          <NavigationProperty Name="Follows" Relationship="Self.FK_Publications_Follows" FromRole="Publications" ToRole="Follows" />
+        </EntityType>
+        <EntityType Name="Recipients">
+          <Key>
+            <PropertyRef Name="recipient_id" />
+          </Key>
+          <Property Name="recipient_id" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="patronymic" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="isAdmin" Type="Boolean" />
+          <NavigationProperty Name="Follows" Relationship="Self.FK_Recipients_Follows" FromRole="Recipients" ToRole="Follows" />
+        </EntityType>
+        <Association Name="FK_Publications_Follows">
+          <End Role="Publications" Type="Self.Publications" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publications">
+              <PropertyRef Name="publication_id" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="publication_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recipients_Follows">
+          <End Role="Recipients" Type="Self.Recipients" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="recipient_id" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="recipient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EducPracEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Follows" EntityType="Self.Follows" />
+          <EntitySet Name="Publications" EntityType="Self.Publications" />
+          <EntitySet Name="Recipients" EntityType="Self.Recipients" />
+          <AssociationSet Name="FK_Publications_Follows" Association="Self.FK_Publications_Follows">
+            <End Role="Publications" EntitySet="Publications" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recipients_Follows" Association="Self.FK_Recipients_Follows">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EducPracModelContainer" CdmEntityContainer="EducPracEntities1">
+          <EntitySetMapping Name="Follows">
+            <EntityTypeMapping TypeName="EducPracModel.Follows">
+              <MappingFragment StoreEntitySet="Follows">
+                <ScalarProperty Name="follow_id" ColumnName="follow_id" />
+                <ScalarProperty Name="recipient_id" ColumnName="recipient_id" />
+                <ScalarProperty Name="publication_id" ColumnName="publication_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publications">
+            <EntityTypeMapping TypeName="EducPracModel.Publications">
+              <MappingFragment StoreEntitySet="Publications">
+                <ScalarProperty Name="publication_id" ColumnName="publication_id" />
+                <ScalarProperty Name="publication_type" ColumnName="publication_type" />
+                <ScalarProperty Name="publication_name" ColumnName="publication_name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipients">
+            <EntityTypeMapping TypeName="EducPracModel.Recipients">
+              <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="recipient_id" ColumnName="recipient_id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
