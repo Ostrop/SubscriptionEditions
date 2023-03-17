@@ -38,19 +38,24 @@
             <Label Grid.Column="1" Grid.Row="2" Name="PatronymicLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
             <Label Grid.Column="1" Grid.Row="3" Name="AddressLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
         </Grid>
-        <Grid Margin="0,132,0,0">
-            <Label Content="Подписки"></Label>
-            <DataGrid AutoGenerateColumns="False" Name="FollowsGrid" IsReadOnly="True">
+        <Grid Margin="0,132,70,37">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="315*"/>
+                <ColumnDefinition Width="46*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Подписки" Margin="10,0,550,226"/>
+            <DataGrid HeadersVisibility="Column" AutoGenerateColumns="False" Name="FollowsGrid" IsReadOnly="True" Margin="10,29,-58,-29" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Издание" Width="*" Binding="{Binding Publications.publication_name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата подписки" Width="*" Binding="{Binding start_date}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата подписки" Width="*" Binding="{Binding start_date}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Вид издания" Width="*" Binding="{Binding Publications.publication_type}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Время подписки (мес.)" Width="*" Binding="{Binding period}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Стоимость в месяц (руб.)" Width="*" Binding="{Binding Publications.price}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock Visibility="Hidden" Name="NoFindTB" HorizontalAlignment="Center" Margin="341,34,182,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" Foreground="#FF8B8B8B"/>
         </Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="662,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <Label Content="Поиск" HorizontalAlignment="Left" Margin="619,101,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="602,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" VerticalContentAlignment="Center"/>
+        <Label Content="Поиск изданий:" HorizontalAlignment="Left" Margin="509,129,0,0" VerticalAlignment="Top" />
     </Grid>
 </Window>
