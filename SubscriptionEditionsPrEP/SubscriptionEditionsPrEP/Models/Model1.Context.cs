@@ -16,17 +16,17 @@ namespace SubscriptionEditionsPrEP.Models
     public partial class EducPracEntities1 : DbContext
     {
         private static EducPracEntities1 _context;
-        public EducPracEntities1()
-            : base("name=EducPracEntities1")
-        {
-        }
         public static EducPracEntities1 GetContext()
         {
             if (_context == null)
                 _context = new EducPracEntities1();
-
             return _context;
         }
+        public EducPracEntities1()
+            : base("name=EducPracEntities1")
+        {
+        }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

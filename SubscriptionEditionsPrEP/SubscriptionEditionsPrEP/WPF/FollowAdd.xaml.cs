@@ -2,16 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SubscriptionEditionsPrEP.WPF
 {
@@ -56,9 +49,10 @@ namespace SubscriptionEditionsPrEP.WPF
         {
             try
             {
-                var currentFollows = EducPracEntities1.GetContext().Follows.ToList();
+                var currentFollows = EducPracEntities1.GetContext().Follows.ToList().Where(p => p.recipient_id == User.recipient_id).ToList();
                 int amount = currentFollows.Count;
                 currentFollows = currentFollows.Where(p => DateTime.Now <= (Convert.ToDateTime(p.start_date).AddMonths((int)p.period))).ToList();
+                currentFollows = currentFollows.Where(p => p.Publications.publication_name.Contains(PublicationCMB.Text)).ToList();
                 currentFollows = currentFollows.Where(p => p.Publications.publication_name.Contains(PublicationCMB.Text)).ToList();
                 if (currentFollows.Count >= 1)
                 {
@@ -68,7 +62,6 @@ namespace SubscriptionEditionsPrEP.WPF
                 using (EducPracEntities1 db = new EducPracEntities1())
                 {
                     Follows newfollow = new Follows();
-                    newfollow.follow_id = amount;
                     newfollow.period = Convert.ToByte(PeriodCMB.Text);
                     newfollow.publication_id = PublicationCMB.SelectedIndex;
                     newfollow.recipient_id = User.recipient_id;
@@ -78,7 +71,7 @@ namespace SubscriptionEditionsPrEP.WPF
                     this.Close();
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void PeriodCMB_PreviewTextInput(object sender, TextCompositionEventArgs e)

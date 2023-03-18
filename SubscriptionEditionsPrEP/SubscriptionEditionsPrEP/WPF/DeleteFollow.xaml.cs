@@ -2,16 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SubscriptionEditionsPrEP.WPF
 {
@@ -20,7 +12,7 @@ namespace SubscriptionEditionsPrEP.WPF
     /// </summary>
     public partial class DeleteFollow : Window
     {
-        Follows deletefollow;
+        Follows deletefollow = new Follows();
         public DeleteFollow(Recipients User)
         {
             InitializeComponent();
@@ -32,14 +24,18 @@ namespace SubscriptionEditionsPrEP.WPF
             foreach (var item in currentFollows)
                 publnames.Add(item.Publications.publication_name);
             CBM.ItemsSource = publnames;
-            CBM.SelectedIndex = 0;
+            deletefollow.recipient_id = User.recipient_id;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (CBM.Text != string.Empty)
             if (MessageBox.Show("Отменить подписку?", "Внимание!", MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
-            {
-                EducPracEntities1.GetContext().Follows.Remove(deletefollow);
+                {
+                    var currentFollows = EducPracEntities1.GetContext().Follows.ToList().Where(p => p.recipient_id == deletefollow.recipient_id).ToList();
+                    currentFollows = currentFollows.Where(p => DateTime.Now <= (Convert.ToDateTime(p.start_date).AddMonths((int)p.period))).ToList();
+                    deletefollow = currentFollows.Where(p => p.Publications.publication_name == CBM.Text).FirstOrDefault();
+                    EducPracEntities1.GetContext().Follows.Remove(deletefollow);
                 EducPracEntities1.GetContext().SaveChanges();
                 this.Close();
             }
@@ -48,9 +44,6 @@ namespace SubscriptionEditionsPrEP.WPF
 
         private void CBM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var currentFollows = EducPracEntities1.GetContext().Follows.ToList();
-            currentFollows = currentFollows.Where(p => DateTime.Now <= (Convert.ToDateTime(p.start_date).AddMonths((int)p.period))).ToList();
-            deletefollow = currentFollows.Where(p => p.Publications.publication_name == CBM.Text).FirstOrDefault();
         }
     }
 }

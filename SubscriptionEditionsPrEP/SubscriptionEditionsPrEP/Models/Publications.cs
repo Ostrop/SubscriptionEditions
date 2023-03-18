@@ -24,7 +24,7 @@ namespace SubscriptionEditionsPrEP.Models
         public string publication_type { get; set; }
         public string publication_name { get; set; }
         public Nullable<double> price { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Follows> Follows { get; set; }
     }

@@ -3,20 +3,13 @@ using SubscriptionEditionsPrEP.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SubscriptionEditionsPrEP.WPF
 {
@@ -33,33 +26,34 @@ namespace SubscriptionEditionsPrEP.WPF
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
             User = user;
-            UserPhoto.Source = new BitmapImage(new Uri(User.Image, UriKind.Relative));
+            if (user.Image != null)
+                UserPhoto.Source = new BitmapImage(new Uri(User.Image, UriKind.Relative));
             UserPhoto.Stretch = Stretch.UniformToFill;
             SurnameLabel.Content = user.surname;
             NameLabel.Content = user.name;
             PatronymicLabel.Content = user.patronymic;
             AddressLabel.Content = user.address;
-            FollowsGrid.ItemsSource = EducPracEntities1.GetContext().Follows.ToList();
+            FollowsGrid.ItemsSource = EducPracEntities1.GetContext().Follows.ToList().Where(p=>p.recipient_id == User.recipient_id).ToList();
             List<string> list = new List<string>();
             list.Add("");
             list.Add("Газета");
             list.Add("Журнал");
             CMB.ItemsSource = list;
-            Amount.Text = FAmount.Text = EducPracEntities1.GetContext().Follows.ToList().Count.ToString();
+            Amount.Text = FAmount.Text = EducPracEntities1.GetContext().Follows.ToList().Where(p => p.recipient_id == User.recipient_id).ToList().Count.ToString();
         }
 
         private void FormUpdate()
         {
-            FollowsGrid.ItemsSource = EducPracEntities1.GetContext().Follows.ToList();
+            FollowsGrid.ItemsSource = EducPracEntities1.GetContext().Follows.ToList().Where(p => p.recipient_id == User.recipient_id).ToList();
             CMB.SelectedIndex = 0;
             CheckB.IsChecked = false;
             TBSearch.Text = string.Empty;
-
+            NoFindTB.Visibility = Visibility.Hidden;
         }
 
         private void Search()
         {
-            var currentFollows = EducPracEntities1.GetContext().Follows.ToList();
+            var currentFollows = EducPracEntities1.GetContext().Follows.ToList().Where(p => p.recipient_id == User.recipient_id).ToList();
 
             if (CMB.SelectedIndex > 0)
                 currentFollows = currentFollows.Where(p => p.Publications.publication_type.Contains(CMB.SelectedItem.ToString())).ToList();
@@ -73,7 +67,7 @@ namespace SubscriptionEditionsPrEP.WPF
             else
                 NoFindTB.Visibility = Visibility.Hidden;
             FollowsGrid.ItemsSource = currentFollows;
-            Amount.Text = currentFollows.Count.ToString(); 
+            Amount.Text = currentFollows.Count.ToString();
             FAmount.Text = EducPracEntities1.GetContext().Follows.ToList().Count.ToString();
         }
 
@@ -92,7 +86,7 @@ namespace SubscriptionEditionsPrEP.WPF
             followAddWindow.ShowDialog();
             FormUpdate();
         }
-        
+
         private void DeleteFollowButton(object sender, RoutedEventArgs e)
         {
             followDeleteWindow = new DeleteFollow(User);

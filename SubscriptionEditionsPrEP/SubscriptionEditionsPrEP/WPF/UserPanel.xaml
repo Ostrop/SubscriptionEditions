@@ -67,7 +67,7 @@
         <Button Click="DeleteFollowButton" Margin="159,441,508,10" Width="125">
             <TextBlock Text="Отменить подписку" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextDecorations="{x:Null}"/>
         </Button>
-        
+
         <TextBlock Name="Amount" HorizontalAlignment="Left" Margin="720,449,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Label Content="Количество выведенных строк:" HorizontalAlignment="Left" Margin="540,444,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.154"/>
         <Label Content="Общее количество строк:" HorizontalAlignment="Left" Margin="571,462,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.154"/>
