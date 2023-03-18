@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SubscriptionEditionsPrEP.WPF"
         mc:Ignorable="d"
-        Title="Окно пользователя" Height="450" Width="800" Background="#FF979595">
+        Title="Окно пользователя" Height="529" Width="800" Background="#FFD1CFCF">
     <Grid>
-        <Image Source="/Resources/LogoOG.png" Height="98" Margin="589,-9,10,330" Width="193" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5"></Image>
-        <Image Name="UserPhoto" Margin="19,22,673,297" RenderTransformOrigin="0.5,0.5">
+        <Image Source="/Resources/LogoOG.png" Height="98" Margin="589,17,10,383" Width="193" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5"></Image>
+        <Image  Source="/Resources/comico.jpg" Name="UserPhoto" Margin="19,22,668,371" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="UserPhoto_MouseLeftButtonDown">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -38,13 +38,13 @@
             <Label Grid.Column="1" Grid.Row="2" Name="PatronymicLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
             <Label Grid.Column="1" Grid.Row="3" Name="AddressLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
         </Grid>
-        <Grid Margin="0,132,70,37">
+        <Grid Margin="0,132,70,58">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="315*"/>
                 <ColumnDefinition Width="46*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Подписки" Margin="10,0,550,226"/>
-            <DataGrid HeadersVisibility="Column" AutoGenerateColumns="False" Name="FollowsGrid" IsReadOnly="True" Margin="10,29,-58,-29" Grid.ColumnSpan="2">
+            <Label Content="Подписки" Margin="10,4,524,258" FontWeight="Bold"/>
+            <DataGrid HeadersVisibility="Column" AutoGenerateColumns="False" Name="FollowsGrid" IsReadOnly="True" Margin="10,29,-58,10" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Издание" Width="*" Binding="{Binding Publications.publication_name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Дата подписки" Width="*" Binding="{Binding start_date}" ></DataGridTextColumn>
@@ -53,9 +53,25 @@
                     <DataGridTextColumn Header="Стоимость в месяц (руб.)" Width="*" Binding="{Binding Publications.price}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Visibility="Hidden" Name="NoFindTB" HorizontalAlignment="Center" Margin="341,34,182,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" Foreground="#FF8B8B8B"/>
+            <TextBlock Visibility="Hidden" Name="NoFindTB"  Margin="346,59,150,0" Text="Ничего не найдено" VerticalAlignment="Top" Foreground="#FF8B8B8B"/>
+            <Label Content="Вид издания:" HorizontalAlignment="Left" Margin="301,-4,0,0" VerticalAlignment="Top" />
+            <ComboBox Name="CMB" IsReadOnly="True" HorizontalAlignment="Left" Margin="382,0,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CMB_SelectionChanged" VerticalContentAlignment="Center"/>
+            <Label Content="Активные:" HorizontalAlignment="Left" Margin="199,-4,0,0" VerticalAlignment="Top" />
+            <CheckBox Name="CheckB" HorizontalAlignment="Left" Margin="270,4,0,0" VerticalAlignment="Top" Width="19" VerticalContentAlignment="Center" Click="CheckB_Click"/>
         </Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="602,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" VerticalContentAlignment="Center"/>
+        <TextBox Name="TBSearch" HorizontalAlignment="Left" Height="23" Margin="602,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" VerticalContentAlignment="Center"/>
         <Label Content="Поиск изданий:" HorizontalAlignment="Left" Margin="509,129,0,0" VerticalAlignment="Top" />
+        <Button Click="NewFollowButton" Margin="10,441,657,10" Width="125">
+            <TextBlock Text="Оформить новую подписку" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextDecorations="{x:Null}"/>
+        </Button>
+        <Button Click="DeleteFollowButton" Margin="159,441,508,10" Width="125">
+            <TextBlock Text="Отменить подписку" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextDecorations="{x:Null}"/>
+        </Button>
+        
+        <TextBlock Name="Amount" HorizontalAlignment="Left" Margin="720,449,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Количество выведенных строк:" HorizontalAlignment="Left" Margin="540,444,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.154"/>
+        <Label Content="Общее количество строк:" HorizontalAlignment="Left" Margin="571,462,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.154"/>
+        <TextBlock Name="FAmount" HorizontalAlignment="Left" Margin="720,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

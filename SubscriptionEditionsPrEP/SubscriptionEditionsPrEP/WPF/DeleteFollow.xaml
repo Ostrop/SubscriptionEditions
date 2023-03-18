@@ -1,0 +1,15 @@
+﻿<Window x:Class="SubscriptionEditionsPrEP.WPF.DeleteFollow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SubscriptionEditionsPrEP.WPF"
+        mc:Ignorable="d"
+        Title="Удаление подписки" Height="219.26" Width="321.301">
+    <Grid>
+        <Label Content="Укажите издание:" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="CBM" HorizontalAlignment="Left" Margin="122,36,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="CBM_SelectionChanged"/>
+        <Button Click="Button_Click" Content="Отменить" HorizontalAlignment="Left" Margin="86,89,0,0" VerticalAlignment="Top" Width="132" Height="55"/>
+
+    </Grid>
+</Window>
